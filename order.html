@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Order - Food Ordering Website</title>
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    body {
+      background: url('sandwich.jpg') no-repeat center center/cover;
+    }
+    .order-form {
+      max-width: 500px;
+      margin: 40px auto;
+      background: rgba(255, 255, 255, 0.95);
+      padding: 25px;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+    .order-form h2 {
+      margin-bottom: 15px;
+      text-align: center;
+    }
+    .order-form input,
+    .order-form select,
+    .order-form textarea,
+    .order-form button {
+      width: 100%;
+      padding: 10px;
+      margin: 8px 0;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+    .order-form button {
+      background-color: #ff4757;
+      color: white;
+      border: none;
+      font-size: 16px;
+    }
+  </style>
+</head>
+<body>
+  <header>Place Your Order</header>
+  <nav>
+    <a href="index.html">Home</a>
+    <a href="menu.html">Menu</a>
+    <a href="order.html">Order</a>
+    <a href="contact.html">Contact</a>
+    <a href="about.html">About</a>
+  </nav>
+
+  <form class="order-form">
+    <h2>Order Details</h2>
+    <input type="text" name="name" placeholder="Your Name" required />
+    <input type="tel" name="phone" placeholder="Phone Number" required />
+    <input type="text" name="address" placeholder="Delivery Address" required />
+    <select name="item" required>
+      <option value="">Select Food Item</option>
+      <option value="Burger">Burger</option>
+      <option value="Pizza">Pizza</option>
+      <option value="Pasta">Pasta</option>
+      <option value="Fries">Fries</option>
+      <option value="Wrap">Wrap</option>
+    </select>
+    <input type="number" name="quantity" min="1" placeholder="Quantity" required />
+    <textarea name="note" placeholder="Special Instructions (optional)"></textarea>
+    <button type="submit">Submit Order</button>
+  </form>
+</body>
+</html>

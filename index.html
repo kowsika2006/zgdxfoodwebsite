@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Food Ordering Website</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <header> ZGDX Food Ordering Website</header>
+  <nav>
+    <a href="index.html">Home</a>
+    <a href="menu.html">Menu</a>
+    <a href="order.html">Order</a>
+    <a href="contact.html">Contact</a>
+    <a href="about.html">About</a>
+  </nav>
+
+  <div class="menu" id="menu">
+    <!-- Items inserted by JavaScript -->
+  </div>
+
+  <div class="cart" id="cart">
+    <h2>Cart</h2>
+    <ul id="cart-items"></ul>
+  </div>
+
+  <script>
+    const foodItems = [
+      { name: "Burger", price: 5.99, image: "burger.jpg" },
+      { name: "Pizza", price: 8.99, image: "pizza.jpg" },
+      { name: "Pasta", price: 7.49, image: "pasta.jpg" },
+      { name: "Salad", price: 4.99, image: "salad.jpg" },
+      { name: "Fries", price: 3.49, image: "fries.jpg" },
+      { name: "Taco", price: 6.25, image: "taco.jpg" }
+    ];
+
+    const menuDiv = document.getElementById('menu');
+    const cartItems = document.getElementById('cart-items');
+
+    foodItems.forEach(item => {
+      const div = document.createElement('div');
+      div.className = 'item';
+      div.innerHTML = `
+        <img src="${item.image}" alt="${item.name}" />
+        <h3>${item.name}</h3>
+        <p>$${item.price.toFixed(2)}</p>
+        <button onclick="addToCart('${item.name}', ${item.price})">Add to Cart</button>
+      `;
+      menuDiv.appendChild(div);
+    });
+
+    function addToCart(name, price) {
+      const li = document.createElement('li');
+      li.textContent = `${name} - $${price.toFixed(2)}`;
+      cartItems.appendChild(li);
+    }
+  </script>
+</body>
+</html>

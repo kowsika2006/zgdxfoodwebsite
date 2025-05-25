@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Menu - Food Ordering Website</title>
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    body {
+      background: url('background.jpg') no-repeat center center/cover;
+    }
+
+    .options {
+      display: flex;
+      gap: 15px;
+      flex-wrap: wrap;
+      justify-content: center;
+      text-align: center;
+      color: #ffffff;
+    }
+
+    .option {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      width: 180px;
+      text-align: center;
+      color: #ffffff;
+    }
+
+    .option-img {
+      width: 180px;
+      height: 180px;
+      cursor: pointer;
+      border: 3px solid transparent;
+      border-radius: 10px;
+    }
+
+    .option-img:hover {
+      border-color: #ff9800;
+    }
+
+    .option-name {
+      margin-top: 8px;
+      font-size: 18px;
+      font-weight: bold;
+      text-align: center;
+      color: #ffffff;
+      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.6);
+    }
+
+    .cart-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .remove-btn {
+      background-color: #ff4d4d;
+      color: white;
+      border: none;
+      padding: 5px 10px;
+      cursor: pointer;
+    }
+
+    .remove-btn:hover {
+      background-color: #cc0000;
+    }
+  </style>
+</head>
+<body>
+  <header>Our Delicious Menu</header>
+  <nav>
+    <a href="index.html">Home</a>
+    <a href="menu.html">Menu</a>
+    <a href="order.html">Order</a>
+    <a href="contact.html">Contact</a>
+    <a href="about.html">About</a>
+  </nav>
+
+  <div class="menu" id="menu"></div>
+
+  <div class="cart" id="cart">
+    <h2>Cart</h2>
+    <ul id="cart-items"></ul>
+  </div>
+
+  <div id="options-container"></div>
+
+  <script>
+    const foodItems = [
+      {
+        name: "Burger",
+        price: 6.99,
+        image: "burger.jpg",
+        options: [
+          { name: "Cheese Burger", image: "chesseburger.jpg" },
+          { name: "Double Burger", image: "doubleburger.jpg" },
+          { name: "Chicken Burger", image: "chickenburger.jpg" },
+          { name: "Spicy Burger", image: "spicybur.jpg" }
+        ]
+      },
+      {
+        name: "Pizza",
+        price: 9.50,
+        image: "pizza.jpg",
+        options: [
+          { name: "Pepperoni Pizza", image: "pepperoni.jpg" },
+          { name: "Veggie Pizza", image: "vegpizza.jpg" },
+          { name: "Margherita Pizza", image: "marpizza.jpg" },
+          { name: "BBQ Pizza", image: "bbqpizza.jpg" },
+          { name: "Cheese Pizza", image: "cheesepiz.jpg" }
+        ]
+      },
+      {
+        name: "Sandwich",
+        price: 5.75,
+        image: "sandwich.jpg",
+        options: [
+          { name: "Grilled Sandwich", image: "grilled.jpg" },
+          { name: "Club Sandwich", image: "club.jpg" },
+          { name: "Turkey Sandwich", image: "turkey.jpg" },
+          { name: "Panini Sandwich", image: "paini.jpg" },
+          { name: "Cheese Sandwich", image: "cheese.jpg" }
+        ]
+      },
+      {
+        name: "Milkshake",
+        price: 4.99,
+        image: "milkshake.jpg",
+        options: [
+          { name: "Chocolate Shake", image: "chocomilk.jpg" },
+          { name: "Vanilla Shake", image: "vanilla.jpg" },
+          { name: "Strawberry Shake", image: "strawberry.jpg" },
+          { name: "Banana Shake", image: "banana.jpg" },
+          { name: "Cookies & Cream Shake", image: "creamshake.jpg" }
+        ]
+      }
+    ];
+
+    const menuDiv = document.getElementById('menu');
+    const cartItems = document.getElementById('cart-items');
+    const optionsContainer = document.getElementById('options-container');
+
+    foodItems.forEach(item => {
+      const div = document.createElement('div');
+      div.className = 'item';
+      div.innerHTML = `
+        <img src="${item.image}" alt="${item.name}" />
+        <h3>${item.name}</h3>
+        <p>$${item.price.toFixed(2)}</p>
+        <button onclick="showOptions('${item.name}')">Choose Type</button>
+        <button onclick="addToCart('${item.name}', ${item.price})">Add to Cart</button>
+      `;
+      menuDiv.appendChild(div);
+    });
+
+    function showOptions(name) {
+      const item = foodItems.find(food => food.name === name);
+      if (!item) return;
+
+      let optionHTML = `<h2>${name} Options</h2><div class="options">`;
+      item.options.forEach(option => {
+        optionHTML += `
+          <div class="option">
+            <img src="${option.image}" alt="${option.name}" class="option-img" onclick="addToCart('${option.name}', ${item.price})" />
+            <p class="option-name">${option.name}</p>
+          </div>`;
+      });
+      optionHTML += `</div>`;
+      optionsContainer.innerHTML = optionHTML;
+
+      optionsContainer.scrollIntoView({ behavior: "smooth", block: "start" });
+    }
+
+    function addToCart(name, price) {
+      const li = document.createElement('li');
+      li.className = "cart-item";
+      li.innerHTML = `${name} - $${price.toFixed(2)}
+        <button class="remove-btn" onclick="removeFromCart(this)">Remove</button>`;
+      cartItems.appendChild(li);
+    }
+
+    function removeFromCart(button) {
+      button.parentElement.remove();
+    }
+  </script>
+</body>
+</html>
